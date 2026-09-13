@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cart &amp; Checkout — Jam Fresh</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐓</text></svg>" />
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo">Jam<span>Fresh</span></a>
+    <div class="nav-links">
+      <a href="index.html#products">Products</a>
+      <a href="index.html#why">Why Us</a>
+      <a href="index.html#contact">Contact</a>
+      <a href="cart.html" class="cart-btn">
+        🛒 Cart <span class="cart-count">0</span>
+      </a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html#products">🥚 Products</a>
+    <a href="index.html#contact">📞 Contact</a>
+    <a href="cart.html">🛒 Cart</a>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <h1>🛒 Your Cart</h1>
+  <p>Review your order and complete checkout below</p>
+</div>
+
+<!-- CART + CHECKOUT -->
+<div class="cart-page">
+  <div class="cart-layout">
+
+    <!-- LEFT: Items + Form -->
+    <div>
+      <h2 class="cart-section-title">Order Items</h2>
+      <div id="cartItems">
+        <!-- Rendered by JS -->
+      </div>
+
+      <!-- CHECKOUT FORM -->
+      <div class="checkout-form">
+        <h2 class="cart-section-title" style="margin-top:36px">Delivery Information</h2>
+        <form id="checkoutForm" novalidate>
+
+          <div class="form-group">
+            <label class="form-label" for="fullName">Full Name *</label>
+            <input class="form-input" type="text" id="fullName" placeholder="e.g. Adaeze Okonkwo" required autocomplete="name" />
+          </div>
+
+          <!-- FIX: phone alone in form-row; address is full-width textarea below -->
+          <div class="form-group">
+            <label class="form-label" for="phoneNumber">Phone Number *</label>
+            <input class="form-input" type="tel" id="phoneNumber" placeholder="e.g. 08012345678" required autocomplete="tel" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="deliveryAddress">Delivery Address *</label>
+            <textarea class="form-textarea" id="deliveryAddress" placeholder="e.g. 12 Adekunle Street, Yaba, Lagos" required rows="3"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="orderNotes">Additional Notes (optional)</label>
+            <textarea class="form-textarea" id="orderNotes" placeholder="Preferred delivery time, landmarks, special instructions…" rows="2"></textarea>
+          </div>
+
+          <!-- PAYMENT METHOD -->
+          <div class="form-group">
+            <label class="form-label">Payment Method</label>
+            <div class="payment-box">
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+                <input type="radio" id="bankTransfer" name="payment" value="bank" checked />
+                <label for="bankTransfer" style="font-weight:600;cursor:pointer;margin:0;">🏦 Bank Transfer</label>
+              </div>
+              <h4>Transfer to this account:</h4>
+              <div class="bank-detail">
+                <span class="label">Bank Name</span>
+                <span class="value">GTB Bank</span>
+              </div>
+              <div class="bank-detail">
+                <span class="label">Account Number</span>
+                <!-- FIX: accNum click handled in main.js DOMContentLoaded -->
+                <span class="value" id="accNum" style="cursor:pointer;" title="Click to copy">0035480122 📋</span>
+              </div>
+              <div class="bank-detail">
+                <span class="label">Account Name</span>
+                <span class="value">Adepegba Jamiu Tunde</span>
+              </div>
+              <div style="margin-top:12px;padding:10px;background:rgba(46,107,53,0.1);border-radius:8px;font-size:0.85rem;color:#2e6b35;line-height:1.5;">
+                ⚠️ <strong>After payment,</strong> send your proof of payment via WhatsApp to <strong>08069656266</strong> to confirm your order.
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="place-order-btn" id="placeOrderBtn">
+            ✅ Place Order
+          </button>
+          <p style="font-size:0.8rem;color:#7a8c7b;margin-top:10px;text-align:center;line-height:1.5;">
+            By placing your order, you confirm your details are correct. An email notification will be sent to our team automatically.
+          </p>
+
+        </form>
+      </div>
+    </div>
+
+    <!-- RIGHT: Order Summary -->
+    <div>
+      <div class="order-summary-card">
+        <h2 class="cart-section-title">Order Summary</h2>
+        <div id="summaryLines"></div>
+        <div class="summary-total">
+          <span>Total</span>
+          <span id="summaryTotal">₦0</span>
+        </div>
+        <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border);">
+          <a href="index.html" style="display:flex;align-items:center;gap:6px;color:var(--green-mid);font-size:0.9rem;font-weight:600;text-decoration:none;">
+            ← Continue Shopping
+          </a>
+        </div>
+        <!-- WhatsApp quick order -->
+        <div style="margin-top:20px;padding:16px;background:var(--green-pale);border-radius:10px;text-align:center;">
+          <p style="font-size:0.82rem;color:var(--text-light);margin-bottom:10px;">Prefer to order via WhatsApp?</p>
+          <a href="https://wa.me/2348069656266?text=Hi%20Jam%20Fresh!%20I%27d%20like%20to%20place%20an%20order%20%F0%9F%90%93"
+             target="_blank" rel="noopener"
+             style="display:inline-flex;align-items:center;gap:6px;background:#25D366;color:white;padding:10px 20px;border-radius:50px;font-weight:600;text-decoration:none;font-size:0.88rem;">
+            💬 Order on WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SUCCESS MODAL -->
+<div class="modal-overlay" id="successModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal">
+    <div class="modal-icon">🎉</div>
+    <h2 id="modalTitle">Order Placed!</h2>
+    <p>Thank you for your order. Our team has been notified and will contact you shortly to confirm delivery.</p>
+    <p style="margin-top:8px;font-size:0.88rem;">
+      📧 An email has been prepared for <strong>jamiucrown200@gmail.com</strong> with your full order details.
+    </p>
+    <div style="margin-top:12px;padding:14px;background:#e8f5e9;border-radius:8px;font-size:0.85rem;color:#2e6b35;line-height:1.6;text-align:left;">
+      ✅ <strong>Next step:</strong> complete your bank transfer to:<br>
+      <strong>GTB Bank · 0035480122 · Adepegba Jamiu Tunde</strong><br>
+      Then send your payment proof on WhatsApp to confirm.
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px;margin-top:20px;">
+      <!-- FIX: href is set dynamically by JS with real order data before cart is cleared -->
+      <a id="whatsappConfirmBtn"
+         href="https://wa.me/2348069656266"
+         target="_blank" rel="noopener"
+         style="display:inline-flex;align-items:center;justify-content:center;gap:8px;background:#25D366;color:white;padding:13px 28px;border-radius:50px;font-weight:700;text-decoration:none;">
+        💬 Send Payment Proof on WhatsApp
+      </a>
+      <!-- FIX: closeModal navigates back to index.html (handled in JS with { once:true }) -->
+      <button id="closeModal" class="modal-btn">
+        ← Back to Shopping
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="toast-container"></div>
+
+<footer>
+  <p>© 2025 <strong>Jam Fresh</strong> · Premium Poultry &amp; Eggs · All Rights Reserved</p>
+  <p style="margin-top:6px">📞 08069656266 &nbsp;|&nbsp; 📧 jamiucrown200@gmail.com</p>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
